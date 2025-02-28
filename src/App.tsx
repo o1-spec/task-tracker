@@ -15,10 +15,10 @@ function App() {
         <Route path="/log-in" element={<Signin />} />
 
         <Route path="/" element={<Homepage />} />
+        <Route path="/taskpage" element={<TaskPage />} />
 
         <Route path="" element={<ProtectedRoute />}>
           <Route path="" element={<Dashboard />} />
-          <Route path="/taskpage" element={<TaskPage />} />
         </Route>
       </Routes>
     </Router>
