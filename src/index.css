@@ -1,1 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+body {
+  font-family: "Manrope", serif;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bg-auth-1 {
+  background-image: url("bg-auth-1.jpg");
+}
+.bg-auth-2 {
+  background-image: url("bg-auth-2.png");
+}
+.bg-auth-3 {
+  background-image: url("bg-auth-3.png");
+}
+
+.signOverlay {
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
+}
