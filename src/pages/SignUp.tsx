@@ -73,7 +73,7 @@ function SignUp() {
                 className="text-black text-xl bg-white px-3 py-3 rounded-full"
               />
               <span className="text-[15px] text-white">
-                Largest Blog and News Space
+                Code Smarter, Track Better
               </span>
             </div>
             <div className="w-32 h-[1px] bg-[#d6d1f8]"></div>

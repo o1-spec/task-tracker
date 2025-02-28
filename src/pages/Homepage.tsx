@@ -7,9 +7,18 @@ import {
   FaServer,
   FaDatabase,
 } from "react-icons/fa";
+import { isAuthenticated } from "../utils/auth";
 
 function Homepage() {
   const navigate = useNavigate();
+
+  const handleWelcomeClick = () => {
+    if (isAuthenticated()) {
+      navigate("/dashboard");
+    } else {
+      navigate("/signup");
+    }
+  };
 
   return (
     <div className="relative h-screen flex flex-col justify-center items-center text-black bg-gray-100 overflow-hidden">
@@ -39,7 +48,7 @@ function Homepage() {
         community of developers. Get started today!
       </p>
       <button
-        onClick={() => navigate("/sign-up")}
+        onClick={handleWelcomeClick}
         className="bg-white text-[#fd7e14] cursor-pointer px-6 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-200 transition"
       >
         Get Started

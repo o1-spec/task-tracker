@@ -3,6 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface FormErrors {
+  userName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
+interface FormState {
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const initialState = {
   userName: "",
   email: "",
@@ -11,12 +25,14 @@ const initialState = {
 };
 
 function SignupForm() {
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState<FormState>(initialState);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const { email, password, userName, confirmPassword } = formData;
   const navigate = useNavigate();
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
@@ -25,21 +41,43 @@ function SignupForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
+    setFormErrors({
+      userName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match!");
-      return;
+    const errors: FormErrors = {};
+
+    if (!userName.trim()) {
+      errors.userName = "Username is required.";
+    }
+
+    if (!email.trim()) {
+      errors.email = "Email is required.";
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+      errors.password = "Password must be at least 8 characters long.";
+    }
+
+    if (password !== confirmPassword) {
+      errors.confirmPassword = "Passwords do not match!";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
       return;
     }
 
     setLoading(true);
 
     setTimeout(() => {
+      const user = { userName, email, password };
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       console.log("User signed up:", formData);
       setLoading(false);
       navigate("/dashboard");
@@ -64,8 +102,6 @@ function SignupForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col">
-        {error && <p className="text-red-500 text-sm pb-2">{error}</p>}
-
         <div className="w-[400px] flex flex-col pb-4">
           <label className="font-bold pb-2 inline-block text-[15px]">
             Username
@@ -78,6 +114,9 @@ function SignupForm() {
             value={userName}
             onChange={handleChange}
           />
+          {formErrors.userName && (
+            <p className="text-red-500 text-sm">{formErrors.userName}</p>
+          )}
         </div>
 
         <div className="pb-4">
@@ -92,6 +131,9 @@ function SignupForm() {
             value={email}
             onChange={handleChange}
           />
+          {formErrors.email && (
+            <p className="text-red-500 text-sm">{formErrors.email}</p>
+          )}
         </div>
 
         <div className="pb-4">
@@ -116,6 +158,9 @@ function SignupForm() {
               } absolute cursor-pointer right-2`}
             />
           </div>
+          {formErrors.password && (
+            <p className="text-red-500 text-sm">{formErrors.password}</p>
+          )}
         </div>
 
         <div className="pb-2">
@@ -140,6 +185,9 @@ function SignupForm() {
               } absolute cursor-pointer right-2`}
             />
           </div>
+          {formErrors.confirmPassword && (
+            <p className="text-red-500 text-sm">{formErrors.confirmPassword}</p>
+          )}
         </div>
 
         <div className="mt-5">
