@@ -39,7 +39,7 @@ function SignUp() {
   };
 
   return (
-    <div className="flex relative">
+    <div className="flex relative items-center justify-center">
       {/* Left Side - Signup Form */}
       <div className="basis-1/2 flex flex-col justify-center items-center gap-4 py-8">
         <div className="text-center">
@@ -56,14 +56,14 @@ function SignUp() {
       </div>
 
       {/* Right Side - Slideshow */}
-      <div className="basis-1/2">
+      <div className="basis-1/2 hidden md:inline-block">
         <motion.div
           key={slides[currentSlide].id}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.5 }}
-          className={`fixed w-[50%] h-[100vh] ${slides[currentSlide].bg} bg-cover bg-center signOverlay`}
+          className={`fixed top-0 w-[50%] h-[100vh] ${slides[currentSlide].bg} bg-cover bg-center signOverlay`}
         >
           {/* Top Section */}
           <div className="pt-8 px-6 flex justify-between items-center">
@@ -80,16 +80,16 @@ function SignUp() {
           </div>
 
           {/* Main Content */}
-          <h1 className="text-[66px] font-serif text-center pt-20 text-white">
+          <h1 className="text-[46px] xl:text-[66px] font-serif text-center pt-20 text-white">
             {slides[currentSlide].title}
           </h1>
           <div className="pt-12 text-white">
             <div className="pl-6">
               <span className="text-[72px]">&quot;</span>
-              <p className="-translate-y-10 text-2xl w-[400px]">
+              <p className="-translate-y-10 text-lg xl:text-2xl xl:w-[400px] md:w-[230px]">
                 {slides[currentSlide].text}
               </p>
-              <p className="">{slides[currentSlide].count}</p>
+              <p>{slides[currentSlide].count}</p>
             </div>
           </div>
 

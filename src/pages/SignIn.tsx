@@ -40,12 +40,14 @@ function Signin() {
   };
 
   return (
-    <div className="flex relative">
+    <div className="flex relative items-center justify-center">
       {/* Left Side - Login Form */}
       <div className="basis-1/2 flex flex-col justify-center items-center gap-4 py-8">
-        <div className="text-center">
+        <div className="text-center px-2 md:px-0">
           <h1 className="text-[60px] font-bold">Hi There!</h1>
-          <span>Welcome back! Continue your coding adventure.</span>
+          <span className="px-4 xl:px-0">
+            Welcome back! Continue your coding adventure.
+          </span>
         </div>
         <SignInForm />
         <div className="flex items-center gap-1">
@@ -57,14 +59,14 @@ function Signin() {
       </div>
 
       {/* Right Side - Slideshow */}
-      <div className="basis-1/2">
+      <div className="basis-1/2 hidden md:inline-block">
         <motion.div
           key={slides[currentSlide].id}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.5 }}
-          className={`fixed w-[50%] h-[100vh] ${slides[currentSlide].bg} bg-cover bg-center signOverlay`}
+          className={`fixed w-[50%] top-0 h-[100vh] ${slides[currentSlide].bg} bg-cover bg-center signOverlay`}
         >
           {/* Top Section */}
           <div className="pt-8 px-6 flex justify-between items-center">
@@ -81,13 +83,13 @@ function Signin() {
           </div>
 
           {/* Main Content */}
-          <h1 className="text-[66px] font-serif text-center pt-20 text-white">
+          <h1 className="text-[52px] xl:text-[66px] font-serif text-center pt-20 text-white">
             {slides[currentSlide].title}
           </h1>
           <div className="pt-12 text-white">
             <div className="pl-6">
               <span className="text-[72px]">&quot;</span>
-              <p className="-translate-y-10 text-2xl w-[400px]">
+              <p className="-translate-y-10 text-lg xl:text-2xl xl:w-[400px] md:w-[230px]">
                 {slides[currentSlide].text}
               </p>
               <p className="">{slides[currentSlide].count}</p>

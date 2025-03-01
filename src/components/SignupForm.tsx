@@ -90,7 +90,7 @@ function SignupForm() {
 
   return (
     <>
-      <button className="text-[14px] border border-[#D6D1F8] px-24 py-3 rounded-lg text-center flex items-center justify-center gap-2">
+      <button className="text-[14px] border border-[#D6D1F8] px-12 sm:px-24 py-3 rounded-lg text-center flex items-center justify-center gap-2">
         <img src="Google.svg" alt="Google Icon" />
         Sign up with Google
       </button>
@@ -102,7 +102,7 @@ function SignupForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col">
-        <div className="w-[400px] flex flex-col pb-4">
+        <div className="sm:w-[350px] w-[300px] flex flex-col pb-4">
           <label className="font-bold pb-2 inline-block text-[15px]">
             Username
           </label>

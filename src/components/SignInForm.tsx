@@ -34,7 +34,7 @@ function SignInForm() {
 
   return (
     <>
-      <button className="text-[14px] border border-[#D6D1F8] px-24 py-3 rounded-lg text-center flex items-center justify-center gap-2">
+      <button className="text-[14px] border border-[#D6D1F8] sm:px-24 px-12 py-3 rounded-lg text-center flex items-center justify-center gap-2">
         <img src="Google.svg" alt="Google Icon" />
         Log in with Google
       </button>
@@ -43,8 +43,8 @@ function SignInForm() {
         Or
         <div className="w-32 h-[1px] bg-[#D6D1F8]"></div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className="pb-4">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <div className="pb-4 w-[300px] sm:w-full">
           <input
             className="px-3 py-2.5 rounded-md w-[100%] placeholder:text-sm border border-[#D6D1F8] focus:outline-none"
             type="email"
@@ -54,7 +54,7 @@ function SignInForm() {
             value={email}
           />
         </div>
-        <div className="pb-2 flex items-center relative">
+        <div className="pb-2 flex items-center relative w-[300px] sm:w-full">
           <input
             className="px-3 py-2.5 rounded-md w-[100%] placeholder:text-sm border border-[#D6D1F8] focus:outline-none"
             type={showPassword ? "text" : "password"}
@@ -71,9 +71,9 @@ function SignInForm() {
             {showPassword ? "👁️" : "🙈"}
           </button>
         </div>
-        <div className="flex flex-col mt-5">
+        <div className="mt-5">
           <input
-            className="bg-black text-white rounded-xl py-2 w-[400px] cursor-pointer hover:bg-white hover:text-black border duration-300"
+            className="bg-black text-white rounded-xl py-2 sm:w-[400px] w-[300px] cursor-pointer hover:bg-white hover:text-black border duration-300"
             type="submit"
             value={`${loading ? "Loading..." : "Log In"}`}
           />
