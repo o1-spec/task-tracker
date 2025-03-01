@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import ThemeToggle from "../components/ThemeToggle";
+import { Task } from "../utils/types";
+import { getCompletedTasks, getDailyTasks } from "../utils/storage";
 
 const SettingsPage = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -12,6 +14,7 @@ const SettingsPage = () => {
   const [easyCount, setEasyCount] = useState(0);
   const [mediumCount, setMediumCount] = useState(0);
   const [hardCount, setHardCount] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -22,6 +25,13 @@ const SettingsPage = () => {
       localStorage.getItem("tasksCompleted") || "0",
       10
     );
+
+    const completedTaskIds = getCompletedTasks();
+    const dailyTasks = getDailyTasks() || [];
+    const completedTaskDetails = dailyTasks.filter((task: Task) =>
+      completedTaskIds.includes(task.contestId + task.index)
+    );
+    setCompletedTasks(completedTaskDetails);
 
     if (storedUser.userName) setUser(storedUser);
     setNotificationsEnabled(storedNotifications);
@@ -93,7 +103,7 @@ const SettingsPage = () => {
             )}
           </div>
           <button
-            className={`w-full p-2 rounded-lg text-white font-semibold ${
+            className={`w-full p-2 rounded-lg text-white font-semibold cursor-pointer ${
               isEditing
                 ? "bg-green-500 hover:bg-green-600"
                 : "bg-blue-500 hover:bg-blue-600"
@@ -159,6 +169,42 @@ const SettingsPage = () => {
               } transition-transform`}
             />
           </button>
+        </motion.div>
+        <motion.div
+          className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Completed Tasks ✅
+          </h2>
+
+          {completedTasks.length === 0 ? (
+            <p className="text-gray-600 dark:text-gray-300">
+              No tasks completed yet.
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              {completedTasks.map((task) => (
+                <li
+                  key={task.contestId + task.index}
+                  className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg flex justify-between"
+                >
+                  <a
+                    href={`https://codeforces.com/contest/${task.contestId}/problem/${task.index}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {task.name}
+                  </a>
+                  <span className="text-sm text-gray-500 dark:text-white/70">
+                    Ratings: {task.rating}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </motion.div>
       </div>
     </div>
