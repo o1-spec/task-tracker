@@ -154,7 +154,7 @@ function SignupForm() {
               size="1x"
               onClick={togglePasswordVisibility}
               className={`${
-                !showPassword ? "text-black" : "text-grey"
+                !showPassword ? "text-black dark:text-white" : "text-grey"
               } absolute cursor-pointer right-2`}
             />
           </div>
@@ -181,7 +181,7 @@ function SignupForm() {
               size="1x"
               onClick={togglePasswordVisibility}
               className={`${
-                !showPassword ? "text-black" : "text-grey"
+                !showPassword ? "text-black dark:text-white" : "text-grey"
               } absolute cursor-pointer right-2`}
             />
           </div>
@@ -194,7 +194,7 @@ function SignupForm() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-black text-white rounded-xl py-2 w-[100%] max-w-[400px] cursor-pointer hover:bg-white hover:text-black border duration-300"
+            className="bg-black text-white rounded-xl py-2 w-[100%] max-w-[400px] cursor-pointer hover:bg-white hover:text-black border dark:border-none duration-300"
           >
             {loading ? "Loading..." : "Create Account"}
           </button>
