@@ -9,7 +9,9 @@ const SettingsPage = () => {
   const [user, setUser] = useState({ userName: "", email: "" });
   const [streak, setStreak] = useState(0);
   const [tasksCompleted, setTasksCompleted] = useState(0);
-  const [stats, setStats] = useState({ easy: 0, medium: 0, hard: 0 });
+  const [easyCount, setEasyCount] = useState(0);
+  const [mediumCount, setMediumCount] = useState(0);
+  const [hardCount, setHardCount] = useState(0);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -20,15 +22,14 @@ const SettingsPage = () => {
       localStorage.getItem("tasksCompleted") || "0",
       10
     );
-    const storedStats = JSON.parse(
-      localStorage.getItem("stats") || '{"easy":0,"medium":0,"hard":0}'
-    );
 
     if (storedUser.userName) setUser(storedUser);
     setNotificationsEnabled(storedNotifications);
     setStreak(storedStreak);
     setTasksCompleted(storedTasks);
-    setStats(storedStats);
+    setEasyCount(parseInt(localStorage.getItem("easyCount") || "0"));
+    setMediumCount(parseInt(localStorage.getItem("mediumCount") || "0"));
+    setHardCount(parseInt(localStorage.getItem("hardCount") || "0"));
   }, []);
 
   const toggleNotifications = () => {
@@ -48,10 +49,8 @@ const SettingsPage = () => {
 
   return (
     <div className="relative min-h-screen p-8 max-w-5xl mx-auto flex flex-col md:flex-row gap-8">
-      {/* Theme Toggle */}
       <ThemeToggle />
 
-      {/* Profile Card */}
       <motion.div
         className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full md:w-1/3"
         initial={{ opacity: 0, y: 20 }}
@@ -106,9 +105,7 @@ const SettingsPage = () => {
         </div>
       </motion.div>
 
-      {/* Settings & Progress */}
       <div className="w-full md:w-2/3 space-y-6">
-        {/* Progress Card */}
         <motion.div
           className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
           initial={{ opacity: 0, y: 20 }}
@@ -122,28 +119,27 @@ const SettingsPage = () => {
             <span className="font-bold text-orange-600">{streak}</span>
           </p>
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
-            ✅ Tasks Completed:{" "}
+            ✅ Tasks Completed:
             <span className="font-bold text-green-600">{tasksCompleted}</span>
           </p>
           <div className="mt-3 space-y-1">
             <p className="text-gray-700 dark:text-gray-400">
-              Easy:{" "}
-              <span className="text-blue-600 font-semibold">{stats.easy}</span>
+              Easy:
+              <span className="text-blue-600 font-semibold">{easyCount}</span>
             </p>
             <p className="text-gray-700 dark:text-gray-400">
-              Medium:{" "}
+              Medium:
               <span className="text-yellow-600 font-semibold">
-                {stats.medium}
+                {mediumCount}
               </span>
             </p>
             <p className="text-gray-700 dark:text-gray-400">
-              Hard:{" "}
-              <span className="text-red-600 font-semibold">{stats.hard}</span>
+              Hard:
+              <span className="text-red-600 font-semibold">{hardCount}</span>
             </p>
           </div>
         </motion.div>
 
-        {/* Notifications Toggle */}
         <motion.div
           className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md flex justify-between items-center"
           whileHover={{ scale: 1.02 }}

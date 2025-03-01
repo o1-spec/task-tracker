@@ -2,6 +2,7 @@ import { CheckCircle, ExternalLink } from "lucide-react";
 import { Task } from "../utils/types";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { updateSolvedCount } from "../utils/storage";
 
 interface TaskListProps {
   tasks: Task[];
@@ -29,7 +30,6 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            {/* Completion Animation */}
             {isCompleted && (
               <motion.div
                 className="absolute inset-0 bg-green-500 opacity-10"
@@ -39,7 +39,6 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
               />
             )}
 
-            {/* Task Header */}
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-200">
                 {task.name}
@@ -49,13 +48,11 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
               )}
             </div>
 
-            {/* Task Difficulty */}
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Difficulty:{" "}
               <span className="font-medium">{task.rating || "Unrated"}</span>
             </p>
 
-            {/* Buttons */}
             <div className="flex items-center justify-between">
               <a
                 href={`https://codeforces.com/problemset/problem/${task.contestId}/${task.index}`}
@@ -72,6 +69,7 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
                   onClick={() => {
                     onComplete(task.contestId + task.index);
                     toast.success(`Completed: ${task.name}`);
+                    updateSolvedCount(task.rating || 0);
                   }}
                 >
                   Mark as Completed

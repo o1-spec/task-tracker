@@ -38,3 +38,17 @@ export const getStreak = () => {
 export const resetCompletedTasks = () => {
   localStorage.removeItem("completedTasks");
 };
+
+export const updateSolvedCount = (rating: number) => {
+  const easyCount = parseInt(localStorage.getItem("easyCount") || "0");
+  const mediumCount = parseInt(localStorage.getItem("mediumCount") || "0");
+  const hardCount = parseInt(localStorage.getItem("hardCount") || "0");
+
+  if (rating >= 800 && rating <= 1400) {
+    localStorage.setItem("easyCount", (easyCount + 1).toString());
+  } else if (rating >= 1500 && rating <= 2000) {
+    localStorage.setItem("mediumCount", (mediumCount + 1).toString());
+  } else if (rating > 2000) {
+    localStorage.setItem("hardCount", (hardCount + 1).toString());
+  }
+};
