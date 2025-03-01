@@ -2,7 +2,6 @@ import { CheckCircle, ExternalLink } from "lucide-react";
 import { Task } from "../utils/types";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-import { updateSolvedCount } from "../utils/storage";
 
 interface TaskListProps {
   tasks: Task[];
@@ -66,9 +65,10 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
                 <button
                   className="px-4 py-2 bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold rounded-md transition-all shadow-sm"
                   onClick={() => {
-                    onComplete(task.contestId + task.index, task.rating || 0);
-                    toast.success(`Completed: ${task.name}`);
-                    updateSolvedCount(task.rating || 0);
+                    if (!completedTasks.includes(task.contestId + task.index)) {
+                      onComplete(task.contestId + task.index, task.rating || 0);
+                      toast.success(`Completed: ${task.name}`);
+                    }
                   }}
                 >
                   Mark as Completed

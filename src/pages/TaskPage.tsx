@@ -40,21 +40,17 @@ const TaskPage: React.FC = () => {
 
   const handleCompleteTask = (taskId: string, rating: number) => {
     if (completedTasks.includes(taskId)) return;
-
     markTaskAsCompleted(taskId);
-    setCompletedTasks((prevCompleted) => {
-      const updatedCompleted = [...prevCompleted, taskId];
+    updateSolvedCount(rating);
 
-      updateSolvedCount(rating);
+    setCompletedTasks((prevCompleted) => [...prevCompleted, taskId]);
 
-      if (updatedCompleted.length === 6) {
-        const newStreak = streak + 1;
-        updateStreak(newStreak);
-        setStreak(newStreak);
-        toast.success(`🔥 Streak increased to ${newStreak}! Keep going!`);
-      }
-      return updatedCompleted;
-    });
+    if (completedTasks.length + 1 === 6) {
+      const newStreak = streak + 1;
+      updateStreak(newStreak);
+      setStreak(newStreak);
+      toast.success(`🔥 Streak increased to ${newStreak}! Keep going!`);
+    }
 
     if (localStorage.getItem("notifications") === "true") {
       toast.success("Task marked as completed!");
