@@ -39,7 +39,7 @@ function SignUp() {
   };
 
   return (
-    <div className="flex relative items-center justify-center">
+    <div className="flex dark:text-white relative items-center justify-center">
       {/* Left Side - Signup Form */}
       <div className="basis-1/2 flex flex-col justify-center items-center gap-4 py-8">
         <div className="text-center">

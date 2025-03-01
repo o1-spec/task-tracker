@@ -6,7 +6,7 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative md:p-8 p-5 py-12 flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 text-center overflow-hidden">
+    <div className="relative md:p-8 p-5 py-14 flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 text-center overflow-hidden">
       <ThemeToggle />
       <BgIcons />
       <h1 className="text-4xl text-center font-bold mb-4 text-gray-900 dark:text-white">
