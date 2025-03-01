@@ -13,6 +13,7 @@ import { Task } from "../utils/types";
 import { toast } from "react-hot-toast";
 import ThemeToggle from "../components/ThemeToggle";
 import { Settings } from "lucide-react";
+import { motion } from "framer-motion";
 
 const TaskPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -52,15 +53,11 @@ const TaskPage: React.FC = () => {
         if (completedTasks.length === 6) {
           updateStreak(streak + 1);
           setStreak(streak + 1);
-          if (localStorage.getItem("notifications") === "true") {
-            toast.success("Great job! Streak increased! 🔥");
-          }
+          toast.success("Great job! Streak increased! 🔥");
         } else {
           updateStreak(0);
           setStreak(0);
-          if (localStorage.getItem("notifications") === "true") {
-            toast.error("Streak lost! Complete all tasks next time.");
-          }
+          toast.error("Streak lost! Complete all tasks next time.");
         }
       }
     };
@@ -69,25 +66,34 @@ const TaskPage: React.FC = () => {
   }, [completedTasks, streak]);
 
   return (
-    <div className="p-6 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-900 transition-all">
-      <a
-        href="/settings"
-        className="absolute top-6 right-28 p-1 rounded-full border dark:border-white/50 border-gray-800"
-      >
-        <Settings className="dark:text-white rounded-full text-black" />
-      </a>
-      <ThemeToggle />
-      <h1 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
-        Daily Coding Tasks 🚀
-      </h1>
-      <p className="text-center text-lg font-medium text-gray-800 dark:text-gray-300">
-        Streak: <span className="text-orange-500">{streak} 🔥</span>
+    <div className="p-6 py-8 max-w-4xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900 transition-all">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Daily Coding Tasks 🚀
+        </h1>
+        <div className="flex items-center gap-4">
+          <motion.a
+            href="/settings"
+            whileHover={{ scale: 1.1 }}
+            className="flex items-center gap-2 p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white shadow-sm transition"
+          >
+            <Settings className="w-5 h-5" />
+            <span className="hidden sm:inline">Settings</span>
+          </motion.a>
+          <ThemeToggle />
+        </div>
+      </div>
+
+      <p className="text-center dark:text-white text-lg font-medium">
+        Streak: <span className="text-orange-500 ">{streak} 🔥</span>
       </p>
-      <TaskList
-        tasks={tasks}
-        completedTasks={completedTasks}
-        onComplete={handleCompleteTask}
-      />
+      <div className="flex items-center flex-col">
+        <TaskList
+          tasks={tasks}
+          completedTasks={completedTasks}
+          onComplete={handleCompleteTask}
+        />
+      </div>
     </div>
   );
 };

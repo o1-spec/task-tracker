@@ -11,7 +11,7 @@ interface TaskListProps {
 
 const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
   return (
-    <div className="mt-6 w-full max-w-2xl space-y-4">
+    <div className="mt-6 w-full max-w-2xl space-y-6">
       {tasks.map((task) => {
         const isCompleted = completedTasks.includes(
           task.contestId + task.index
@@ -20,7 +20,7 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
         return (
           <motion.div
             key={task.contestId + task.index}
-            className={`p-5 border rounded-lg shadow-lg transition-all duration-300 flex flex-col gap-3 relative overflow-hidden ${
+            className={`p-5 border rounded-xl shadow-lg transition-all duration-300 flex flex-col gap-3 relative ${
               isCompleted
                 ? "bg-green-100 dark:bg-green-900 border-green-500"
                 : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
@@ -29,6 +29,7 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
+            {/* Completion Animation */}
             {isCompleted && (
               <motion.div
                 className="absolute inset-0 bg-green-500 opacity-10"
@@ -37,20 +38,24 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
                 transition={{ duration: 0.5 }}
               />
             )}
+
+            {/* Task Header */}
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-200">
                 {task.name}
               </h2>
               {isCompleted && (
                 <CheckCircle className="text-green-500 w-6 h-6" />
               )}
             </div>
+
+            {/* Task Difficulty */}
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Difficulty:{" "}
-              <span className="font-medium text-gray-800 dark:text-gray-100">
-                {task.rating || "Unrated"}
-              </span>
+              <span className="font-medium">{task.rating || "Unrated"}</span>
             </p>
+
+            {/* Buttons */}
             <div className="flex items-center justify-between">
               <a
                 href={`https://codeforces.com/problemset/problem/${task.contestId}/${task.index}`}
@@ -60,14 +65,13 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
               >
                 Solve Problem <ExternalLink size={16} />
               </a>
+
               {!isCompleted && (
                 <button
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-all duration-300 shadow-sm"
+                  className="px-4 py-2 bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold rounded-md transition-all shadow-sm"
                   onClick={() => {
                     onComplete(task.contestId + task.index);
-                    if (localStorage.getItem("notifications") === "true") {
-                      toast.success(`Completed: ${task.name}`);
-                    }
+                    toast.success(`Completed: ${task.name}`);
                   }}
                 >
                   Mark as Completed
