@@ -7,7 +7,7 @@ import { updateSolvedCount } from "../utils/storage";
 interface TaskListProps {
   tasks: Task[];
   completedTasks: string[];
-  onComplete: (taskId: string) => void;
+  onComplete: (taskId: string, rating: number) => void;
 }
 
 const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
@@ -62,12 +62,11 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
               >
                 Solve Problem <ExternalLink size={16} />
               </a>
-
               {!isCompleted && (
                 <button
                   className="px-4 py-2 bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold rounded-md transition-all shadow-sm"
                   onClick={() => {
-                    onComplete(task.contestId + task.index);
+                    onComplete(task.contestId + task.index, task.rating || 0);
                     toast.success(`Completed: ${task.name}`);
                     updateSolvedCount(task.rating || 0);
                   }}

@@ -8,6 +8,7 @@ import {
   markTaskAsCompleted,
   getStreak,
   updateStreak,
+  updateSolvedCount,
 } from "../utils/storage";
 import { Task } from "../utils/types";
 import { toast } from "react-hot-toast";
@@ -37,17 +38,21 @@ const TaskPage: React.FC = () => {
     }
   }, [streak]);
 
-  const handleCompleteTask = (taskId: string) => {
+  const handleCompleteTask = (taskId: string, rating: number) => {
+    if (completedTasks.includes(taskId)) return;
+
     markTaskAsCompleted(taskId);
     setCompletedTasks((prevCompleted) => {
       const updatedCompleted = [...prevCompleted, taskId];
 
-      if (updatedCompleted.length === 6) {
-        updateStreak(streak + 1);
-        setStreak(streak + 1);
-        toast.success("Great job! Streak increased! 🔥");
-      }
+      updateSolvedCount(rating);
 
+      if (updatedCompleted.length === 6) {
+        const newStreak = streak + 1;
+        updateStreak(newStreak);
+        setStreak(newStreak);
+        toast.success(`🔥 Streak increased to ${newStreak}! Keep going!`);
+      }
       return updatedCompleted;
     });
 
@@ -61,9 +66,10 @@ const TaskPage: React.FC = () => {
       const now = new Date();
       if (now.getHours() === 23 && now.getMinutes() === 59) {
         if (completedTasks.length === 6) {
-          updateStreak(streak + 1);
-          setStreak(streak + 1);
-          toast.success("Great job! Streak increased! 🔥");
+          const newStreak = streak + 1;
+          updateStreak(newStreak);
+          setStreak(newStreak);
+          toast.success(`🔥 Streak increased to ${newStreak}!`);
         } else {
           updateStreak(0);
           setStreak(0);
@@ -101,7 +107,9 @@ const TaskPage: React.FC = () => {
         <TaskList
           tasks={tasks}
           completedTasks={completedTasks}
-          onComplete={handleCompleteTask}
+          onComplete={(taskId: string, rating: number) =>
+            handleCompleteTask(taskId, rating)
+          }
         />
       </div>
     </div>
