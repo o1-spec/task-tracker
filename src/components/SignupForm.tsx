@@ -80,7 +80,7 @@ function SignupForm() {
 
       console.log("User signed up:", formData);
       setLoading(false);
-      navigate("/dashboard");
+      navigate("/start");
     }, 1000);
   };
 

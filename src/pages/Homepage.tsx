@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import {
-  FaCode,
-  FaMicrochip,
-  FaLaptopCode,
-  FaCogs,
-  FaServer,
-  FaDatabase,
-} from "react-icons/fa";
+import ThemeToggle from "../components/ThemeToggle"; // Import the component
+
 import { isAuthenticated } from "../utils/auth";
+import BgIcons from "../components/BgIcons";
 
 function Homepage() {
   const navigate = useNavigate();
@@ -15,33 +10,18 @@ function Homepage() {
   const handleWelcomeClick = () => {
     if (!localStorage.getItem("firstVisit")) {
       localStorage.setItem("firstVisit", "true");
-      navigate("/welcome"); // Route to Onboarding page first
+      navigate("/welcome");
     } else if (isAuthenticated()) {
-      navigate("/dashboard");
+      navigate("/taskpage");
     } else {
-      navigate("/signup");
+      navigate("/sign-up");
     }
   };
 
   return (
-    <div className="relative h-screen flex flex-col items-center pt-40 text-black bg-gray-100 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-20 w-32 h-0.5 bg-gray-300 opacity-50"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-0.5 bg-gray-400 opacity-50"></div>
-        <div className="absolute top-1/2 left-1/3 w-48 h-0.5 bg-gray-300 opacity-40"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-52 h-0.5 bg-gray-400 opacity-50"></div>
-        <div className="absolute top-1/4 left-1/5 w-60 h-0.5 bg-gray-300 opacity-30"></div>
-      </div>
-
-      <div className="absolute inset-0 flex justify-between items-center pointer-events-none">
-        <FaCode className="absolute top-12 left-12 text-gray-300 text-4xl opacity-40" />
-        <FaMicrochip className="absolute top-16 right-20 text-gray-400 text-5xl opacity-40" />
-        <FaLaptopCode className="absolute top-1/3 right-16 text-gray-300 text-6xl opacity-30" />
-        <FaCogs className="absolute bottom-1/3 left-16 text-gray-400 text-5xl opacity-30" />
-        <FaServer className="absolute top-1/4 right-1/3 text-gray-300 text-5xl opacity-35" />
-        <FaDatabase className="absolute bottom-1/4 left-1/4 text-gray-400 text-6xl opacity-35" />
-      </div>
-
+    <div className="relative h-screen flex flex-col items-center pt-40 bg-gray-100 dark:bg-gray-900 text-black dark:text-white overflow-hidden">
+      <ThemeToggle />
+      <BgIcons />
       <h1 className="md:text-5xl text-4xl md:px-0 font-bold mb-6 text-center">
         Welcome to AlgoDaily
       </h1>
@@ -51,7 +31,7 @@ function Homepage() {
       </p>
       <button
         onClick={handleWelcomeClick}
-        className="bg-white text-[#fd7e14] cursor-pointer px-6 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-200 transition"
+        className="bg-white dark:bg-gray-800 text-[#fd7e14] cursor-pointer px-6 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 transition"
       >
         Get Started
       </button>

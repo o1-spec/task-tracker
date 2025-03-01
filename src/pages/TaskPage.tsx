@@ -11,6 +11,8 @@ import {
 } from "../utils/storage";
 import { Task } from "../utils/types";
 import { toast } from "react-hot-toast";
+import ThemeToggle from "../components/ThemeToggle";
+import { Settings } from "lucide-react";
 
 const TaskPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -67,11 +69,18 @@ const TaskPage: React.FC = () => {
   }, [completedTasks, streak]);
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-4 text-gray-900">
-        Daily Coding Tasks
+    <div className="p-6 max-w-3xl mx-auto min-h-screen bg-gray-100 dark:bg-gray-900 transition-all">
+      <a
+        href="/settings"
+        className="absolute top-6 right-28 p-1 rounded-full border dark:border-white/50 border-gray-800"
+      >
+        <Settings className="dark:text-white rounded-full text-black" />
+      </a>
+      <ThemeToggle />
+      <h1 className="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+        Daily Coding Tasks 🚀
       </h1>
-      <p className="text-center text-lg font-medium">
+      <p className="text-center text-lg font-medium text-gray-800 dark:text-gray-300">
         Streak: <span className="text-orange-500">{streak} 🔥</span>
       </p>
       <TaskList
