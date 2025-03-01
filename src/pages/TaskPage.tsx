@@ -10,6 +10,7 @@ import {
   updateStreak,
 } from "../utils/storage";
 import { Task } from "../utils/types";
+import { toast } from "react-hot-toast";
 
 const TaskPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -36,6 +37,10 @@ const TaskPage: React.FC = () => {
   const handleCompleteTask = (taskId: string) => {
     markTaskAsCompleted(taskId);
     setCompletedTasks((prevCompleted) => [...prevCompleted, taskId]);
+
+    if (localStorage.getItem("notifications") === "true") {
+      toast.success("Task marked as completed!");
+    }
   };
 
   useEffect(() => {
@@ -45,9 +50,15 @@ const TaskPage: React.FC = () => {
         if (completedTasks.length === 6) {
           updateStreak(streak + 1);
           setStreak(streak + 1);
+          if (localStorage.getItem("notifications") === "true") {
+            toast.success("Great job! Streak increased! 🔥");
+          }
         } else {
           updateStreak(0);
           setStreak(0);
+          if (localStorage.getItem("notifications") === "true") {
+            toast.error("Streak lost! Complete all tasks next time.");
+          }
         }
       }
     };
@@ -57,7 +68,7 @@ const TaskPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-4">
+      <h1 className="text-3xl font-bold text-center mb-4 text-gray-900">
         Daily Coding Tasks
       </h1>
       <p className="text-center text-lg font-medium">

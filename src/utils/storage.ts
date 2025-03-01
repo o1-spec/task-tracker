@@ -34,3 +34,7 @@ export const getStreak = () => {
   const streak = localStorage.getItem("streak");
   return streak ? parseInt(streak, 10) : 0;
 };
+
+export const resetCompletedTasks = () => {
+  localStorage.removeItem("completedTasks");
+};
