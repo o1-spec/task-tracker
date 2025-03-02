@@ -125,7 +125,7 @@ const SettingsPage = () => {
             Your Progress
           </h2>
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
-            🔥 Streak:{" "}
+            🔥 Streak:
             <span className="font-bold text-orange-600">{streak}</span>
           </p>
           <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
@@ -188,7 +188,7 @@ const SettingsPage = () => {
               {completedTasks.map((task) => (
                 <li
                   key={task.contestId + task.index}
-                  className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg flex justify-between"
+                  className="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col md:flex-row gap-2 md:gap-0 justify-between"
                 >
                   <a
                     href={`https://codeforces.com/contest/${task.contestId}/problem/${task.index}`}

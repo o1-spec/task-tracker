@@ -79,8 +79,8 @@ const TaskPage: React.FC = () => {
 
   return (
     <div className="p-6 py-8 max-w-4xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900 transition-all">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      <div className="flex items-start md:items-center gap-2 md:gap-0 flex-col md:flex-row justify-between mb-6 mt-8 md:mt-0">
+        <h1 className="text-[26px] md:text-3xl font-bold text-gray-900 dark:text-white">
           Daily Coding Tasks 🚀
         </h1>
         <div className="flex items-center gap-4">
@@ -90,7 +90,7 @@ const TaskPage: React.FC = () => {
             className="flex items-center gap-2 p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white shadow-sm transition"
           >
             <Settings className="w-5 h-5" />
-            <span className="hidden sm:inline">Settings</span>
+            <span className="sm:inline">Settings</span>
           </motion.a>
           <ThemeToggle />
         </div>

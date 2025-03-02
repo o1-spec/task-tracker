@@ -52,7 +52,7 @@ const TaskList = ({ tasks, completedTasks, onComplete }: TaskListProps) => {
               <span className="font-medium">{task.rating || "Unrated"}</span>
             </p>
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-0 justify-between">
               <a
                 href={`https://codeforces.com/problemset/problem/${task.contestId}/${task.index}`}
                 target="_blank"
